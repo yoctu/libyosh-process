@@ -1,0 +1,12 @@
+#!/bin/bash
+
+PIDSF=firefox &
+if [[ "" !=  "$PIDSF" ]]
+then
+    PID_array=($PIDSF)
+    echo "the PID of firefox is $PIDSF"
+   # kill -9 $PIDS
+fi
+
+
+#echo $PIDS

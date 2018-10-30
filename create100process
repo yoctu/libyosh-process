@@ -1,0 +1,11 @@
+#!/bin/bash
+shopt -s extglob
+for i in {1..100};
+do
+    echo "Process $i are created" &
+    PID=($!)
+    echo "PID of first echo is ==== $PID" 
+    sleep 1 &
+    PIDS=($!)
+    echo "PID of sleep is ==== $PIDS" 
+done
