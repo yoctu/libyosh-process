@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pids=()
+for i in {1..5}; do
+        sleep $(($RANDOM % 2)) &
+        pids+=( $! )
+done
+
+for pid in "${pids[@]}"; do
+        printf 'Waiting for %d...' "$pid"
+        wait $pid
+        echo 'done.'
+done

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function processPool () {
+    pids=()
+    cmdArray=("$@")
+    
+    for i in {1..4}
+    do
+	command ${cmdArray[@]} &
+	pids+=($!)
+    done
+    for pid in "${pids[@]}"
+    do
+	printf 'Waiting for %d ...' "$pid"
+	wait $pid
+	echo 'done.'
+    done
+}
+
+processPool "echo Salut Clement" "touch test"
+#processPool "touch test" "cat rootOrNot " "echo Salut Clement" "pgrep firefox"
+#processPool "echo salut clement"

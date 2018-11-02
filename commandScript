@@ -27,19 +27,12 @@ function processPool()
     do
 	if [[ ! -z "$tmpArray[0]" ]]
 	then
-	    command ${tpmArray[0]} & #doit crée un nouveau process mais ont le meme PID sur les 2cmd
+	    command ${tpmArray[0]} & command ${tmpArray[1]} &
+	    #doit crée un nouveau process mais ont le meme PID sur les 2cmd
 	    PID+=($!) # surment par ce que je ne les lancent pas en même temps
 	    echo "The PID Value is ${PID} for the command ${tpmArray[0]}"
 	else
 	    echo "c'est la bite first argument"
-	fi
-	if [[ ! -z "$tmpArray[$i]" ]]
-	then
-	    command ${tpmArray[1]} &
-	    PID+=($!)
-	    echo "The PID Value is ${PID} for the command ${tpmArray[1]}"
-	else
-	    echo "c'est la bite second argument"
 	fi
     done
 }

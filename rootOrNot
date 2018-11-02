@@ -1,0 +1,14 @@
+#!/bin/bash
+#if [-n "$1"] test 1er argument >0 standart input or function
+REP_TRACES=/var/log
+UID_ROOT=0
+
+if [ "$UID" -ne "$UID_ROOT" ] # -ne non equal -eq equal
+then
+	echo "Vous devez être root pour utiliser ce script"
+	exit -1
+fi
+
+if [-n "$1"] #-n if the lenght of the string is != 0 // "$1" check le premier argument stdin or functuion
+then
+    lignes=$1

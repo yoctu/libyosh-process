@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function parallel() {
+    local var=("$@")
+    while read var
+    do
+	$var[0]
+    done
+    wait
+}
+
+parallel "echo salut Clement" "touch test" 
