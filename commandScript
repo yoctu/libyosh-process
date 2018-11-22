@@ -1,41 +1,44 @@
 #!/bin/bash
 shopt -s extglob
 
-function setArrayWithCmd()
-{
-    cmdArray=("$@")
-
-    if [[ ! -z "$cmdArray" ]]
-    then
-        echo "the cmd is in the array espere touch >>>><   ${cmdArray[0]}"
-	echo "the cmd is in the array espere mv >>>><  ${cmdArray[1]}"
-    else
-	echo "the array is emtpy"
-    fi
-} #useless $@ remplis le tableau command arg; command arg; ne coupe pas au premier espace!!
-
 function processPool()
 {
-    tpmArray+=("$@")
-    index=0
+    tmpArray+=("$@")
+    PID=()
+    index=(0)
 
-    echo "debut de function the command ${tpmArray[0]}"
-    echo "debut de funtiion for the command ${tpmArray[1]}"    #function ProcessPool à mettre en dynamique
+    echo "debut de function the first command ${tmpArray[0]}"
+    echo "debut de funtiion the second command ${tmpArray[1]}"
+    echo "debut de function the third command ${tmpArray[2]}"
+    
+    echo "the lenght of the array is ${#tmpArray[@]}"
 
-      #test pas finis
-    for i in {${#tmpArray[@]}};
+    for cmd in {${#tmpArray[@]}};
     do
-	if [[ ! -z "$tmpArray[0]" ]]
+	if [[ ! -z "$tmpArray[@]" ]]
 	then
-	    command ${tpmArray[0]} & command ${tmpArray[1]} &
-	    #doit crée un nouveau process mais ont le meme PID sur les 2cmd
-	    PID+=($!) # surment par ce que je ne les lancent pas en même temps
-	    echo "The PID Value is ${PID} for the command ${tpmArray[0]}"
+	    command ${tmpArray[0]} &
+	    PID+=($!)
+
+	    echo "cmd === $cmd"
+
+	    command ${tmpArray[1]} &
+	    PID+=($!)
+
+	    command ${tmpArray[2]} &
+	    PID+=($!)
+	    
+	    echo "this is all the pid ${PID[@]}"
 	else
-	    echo "c'est la bite first argument"
+	    echo "c'est le fail pas d'argument"
 	fi
+	for pids in "${PID[@]}"; do
+	    printf "waiting for the %d..." "$pids"
+	    wait $pid
+	    echo 'done.'
+	done
     done
 }
 
-processPool "touch test" "mv test test01"
+processPool "touch test" "mv testok test12" "cat rootOrNot"
 #echo == return en C
